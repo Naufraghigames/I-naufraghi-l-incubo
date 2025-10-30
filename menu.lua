@@ -7,9 +7,9 @@ function menu.load()
     fullscreen = false
     ismenu = true
     isoptions = false
+    blockx = 64
 
     menu_background = love.graphics.newImage("immagini/Background_menu.png")
-    options_background = love.graphics.newImage("immagini/Background_options.png")
     titolo = love.graphics.newImage("immagini/titolo.png")
     play_button = love.graphics.newImage("immagini/Play_button.png")
     exit_button = love.graphics.newImage("immagini/Exit_button.png")
@@ -44,6 +44,7 @@ function love.keypressed(key)
             exit_button_x, exit_button_y = 430/640*screenx, 230/640*screeny
             font = love.graphics.newFont(48)
             love.graphics.setFont(font)
+            blockx = 64/640*screenx
         else
             fullscreen = false
             love.window.setFullscreen(fullscreen)
@@ -52,6 +53,7 @@ function love.keypressed(key)
             exit_button_x, exit_button_y = 430/640*screenx, 230/640*screeny
             font = love.graphics.newFont(20)
             love.graphics.setFont(font)
+            blockx = 64
         end
     end
 end
