@@ -11,7 +11,7 @@ function menu.load()
     scena = 0
 
     menu_background = love.graphics.newImage("immagini/Background_menu.png")
-    titolo = love.graphics.newImage("immagini/titolo.png")
+    titolo = love.graphics.newImage("immagini/Titolo.png")
     play_button = love.graphics.newImage("immagini/Play_button.png")
     exit_button = love.graphics.newImage("immagini/Exit_button.png")
 
