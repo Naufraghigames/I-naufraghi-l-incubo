@@ -9,8 +9,9 @@ function player.load()
     e = love.graphics.newImage("immagini/e.png")
 
     footstep = love.audio.newSource("musica_e_soundeffect/passi.mp3", "stream")
+    sorpresa = love.audio.newSource("musica_e_soundeffect/Sorpresa.wav", "static")
 
-    playerx, playery = 0, 0
+    playerx, playery = 300, 150
 
     player_grid = anim8.newGrid(32, 64, player_spritesheet:getWidth(), player_spritesheet:getHeight())
     player_down = anim8.newAnimation( player_grid('1-4', 2), 0.2)
@@ -20,53 +21,67 @@ end
 
 function player.keypressed(key)
     if key == "e" then
-        if scena == 1 then
-            if playerx >= 236 and playerx <= 334 and playery >= 0 and playery <= 30 then
-                scena = 2
-            end
-        end
+        
     end
 end
 
 function player.update(dt)
-    if ismenu == false then
-        ismoving = false
-
-        if love.keyboard.isDown("up") then
-            if playery > 0 then
-                playery = playery-100*dt
-                player_anim = player_up
-                ismoving = true
-                footstep:play()
+    if isdialogue == false then
+        if ismenu == false then
+            ismoving = false
+            if isdialogue == false then
+                if love.keyboard.isDown("up") then
+                    if playery > 0 then
+                        playery = playery-100*dt
+                        player_anim = player_up
+                        ismoving = true
+                        footstep:play()
+                    end
+                end
+                if love.keyboard.isDown("down") then
+                    if playery < 232 then
+                        playery = playery+100*dt
+                        player_anim = player_down
+                        ismoving = true
+                        footstep:play()
+                    end
+                end
+                if love.keyboard.isDown("right") then
+                    if playerx < 576 then
+                        playerx = playerx+100*dt
+                        ismoving = true
+                        footstep:play()
+                    end
+                end
+                if love.keyboard.isDown("left") then
+                    if playerx > 0 then
+                        playerx = playerx-100*dt
+                        ismoving = true
+                        footstep:play()
+                    end
+                end
+                if playery <= 1 and scena == 2 then
+                    scena = 3
+                    playery = 232
+                    isdialogue = true
+                    sorpresa:play()
+                elseif playery <= 1 and scena == 3 then
+                    scena = 4
+                    playery = 232
+                    isdialogue = true
+                    sorpresa:play()
+                elseif playery <= 1 and scena == 4 then
+                    scena = 5
+                    playery = 232
+                    isdialogue = true
+                end
             end
-        end
-        if love.keyboard.isDown("down") then
-            if playery < 232 then
-                playery = playery+100*dt
-                player_anim = player_down
-                ismoving = true
-                footstep:play()
+            if ismoving == false then
+                player_anim:gotoFrame(2)
+                footstep:stop()
             end
+            player_anim:update(dt)
         end
-        if love.keyboard.isDown("right") then
-            if playerx < 576 then
-                playerx = playerx+100*dt
-                ismoving = true
-                footstep:play()
-            end
-        end
-        if love.keyboard.isDown("left") then
-            if playerx > 0 then
-                playerx = playerx-100*dt
-                ismoving = true
-                footstep:play()
-            end
-        end
-        if ismoving == false then
-            player_anim:gotoFrame(2)
-            footstep:stop()
-        end
-        player_anim:update(dt)
     end
 end
 

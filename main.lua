@@ -1,11 +1,13 @@
 player = require("player")
 menu = require("menu")
 scene = require("scene")
+dialoghi = require("dialoghi")
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 function love.keypressed(key)
     player.keypressed(key)
     menu.keypressed(key)
+    dialoghi.keypressed(key)
 end
 
 function love.load()
@@ -16,10 +18,12 @@ function love.load()
     menu.load()
     player.load()
     scene.load()
+    dialoghi.load()
 end
 
 function love.update(dt)
     menu.update(dt)
+    scene.update(dt)
     player.update(dt)
 end
 
@@ -27,4 +31,5 @@ function love.draw()
     menu.draw()
     scene.draw()
     player.draw()
+    dialoghi.draw()
 end
