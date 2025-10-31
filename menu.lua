@@ -8,6 +8,7 @@ function menu.load()
     ismenu = true
     isoptions = false
     blockx = 64
+    scena = 0
 
     menu_background = love.graphics.newImage("immagini/Background_menu.png")
     titolo = love.graphics.newImage("immagini/titolo.png")
@@ -26,6 +27,7 @@ function love.mousepressed(mousex, mousey, key)
         if ismenu == true then
             if mousex >= play_button_x and mousex <= play_button_x+play_button:getWidth()*(screenx/640) and mousey >= play_button_y and mousey <= play_button_y+play_button:getHeight()*(screeny/360) then
                 ismenu = false
+                scena = 1
             end
             if mousex >= exit_button_x and mousex <= exit_button_x+play_button:getWidth()*(screenx/640) and mousey >= exit_button_y and mousey <= exit_button_y+play_button:getHeight()*(screeny/360) then
                 love.event.quit()
@@ -34,7 +36,7 @@ function love.mousepressed(mousex, mousey, key)
     end
 end
 
-function love.keypressed(key)
+function menu.keypressed(key)
     if key == "return" then
         if fullscreen == false then
             fullscreen = true
@@ -44,7 +46,6 @@ function love.keypressed(key)
             exit_button_x, exit_button_y = 430/640*screenx, 230/640*screeny
             font = love.graphics.newFont(48)
             love.graphics.setFont(font)
-            blockx = 64/640*screenx
         else
             fullscreen = false
             love.window.setFullscreen(fullscreen)
@@ -53,7 +54,8 @@ function love.keypressed(key)
             exit_button_x, exit_button_y = 430/640*screenx, 230/640*screeny
             font = love.graphics.newFont(20)
             love.graphics.setFont(font)
-            blockx = 64
+            playerx = playerx/640*screenx
+            playery = playery/360*screeny
         end
     end
 end

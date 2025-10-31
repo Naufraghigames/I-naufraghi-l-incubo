@@ -6,6 +6,7 @@ function player.load()
     ismoving = false
 
     player_spritesheet = love.graphics.newImage("immagini/player_spritesheet.png")
+    e = love.graphics.newImage("immagini/e.png")
 
     footstep = love.audio.newSource("musica_e_soundeffect/passi.mp3", "stream")
 
@@ -17,6 +18,15 @@ function player.load()
     player_anim = player_up
 end
 
+function player.keypressed(key)
+    if key == "e" then
+        if scena == 1 then
+            if playerx >= 236 and playerx <= 334 and playery >= 0 and playery <= 30 then
+                scena = 2
+            end
+        end
+    end
+end
 
 function player.update(dt)
     if ismenu == false then
@@ -63,7 +73,9 @@ end
 function player.draw()
     if ismenu == false then
         player_anim:draw(player_spritesheet, playerx/640*screenx, playery/360*screeny, 0, 2/640*screenx)
-        love.graphics.print(screeny)
+        if scena == 1 and playerx >= 236 and playerx <= 334 and playery >= 0 and playery <= 30 then
+            love.graphics.draw(e, playerx/640*screenx - 32, playery, 0, 1/640*screenx)
+        end
     end
 end
 
